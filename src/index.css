@@ -1,11 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  --color-text: #6b6375;
-  --color-heading: #08060d;
+  /* Brand */
+  --color-wyze-purple: #4e2fd2; /* core/wyze purple */
+  --color-purple-01: #4e2fd2; /* New/CP-CPP/Purple 01 */
+
+  /* Surfaces */
+  --color-white: #ffffff;
+  --color-utility-white: #ffffff; /* utility/white */
+  --color-gray-c-white: #ffffff; /* Gray-C/White */
+  --color-ice: #edf4ff;
+  --color-mist: #f1f1f2;
+  --color-fog: #f0f4f7;
+  --color-mint-tint: #1df0bb0a;
+
+  /* Gray-C */
+  --color-gray-c-300: #e6ebf0;
+  --color-gray-c-500: #a8b2bd;
+  --color-gray-c-600: #6f7882;
+  --color-obsidian: #0b0d10; /* Gray-C/Obsidian */
+
+  /* Other Figma hexes */
+  --color-slate: #525963;
+  --color-utility-gray-70: #525963;
+  --color-ink: #1f1f1f;
+  --color-charcoal: #484848;
+  --color-steel: #575757;
+  --color-line: #ced6de;
+
+  /* Semantic accents */
+  --color-link: #0000ee;
+  --color-danger: #d8392b;
+  --color-success: #0aa288;
+
+  /* Role aliases */
   --color-bg: #ffffff;
-  --color-border: #e5e4e7;
-  --color-accent: #aa3bff;
+  --color-heading: #0b0d10;
+  --color-text: #6f7882;
+  --color-border: #e6ebf0;
+  --color-accent: #4e2fd2;
 
   --font-sans: system-ui, "Segoe UI", Roboto, sans-serif;
 }
