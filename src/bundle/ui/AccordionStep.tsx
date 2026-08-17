@@ -36,16 +36,16 @@ export function AccordionStep({
           aria-expanded={open}
         >
           <span className="flex min-w-0 flex-1 items-center gap-2">
-            <span className="relative size-[26px] shrink-0 overflow-clip">
+            <span className="relative size-[26px] shrink-0 overflow-clip 2xl:size-[30px]">
               <img
                 alt=""
                 src={assetUrl(step.icon)}
-                width={26}
-                height={26}
+                width={30}
+                height={30}
                 className="size-full object-contain"
               />
             </span>
-            <span className="text-[22px] font-semibold text-heading">
+            <span className="text-[22px] font-semibold text-heading 2xl:text-[28px]">
               {step.label}
             </span>
           </span>
@@ -69,7 +69,7 @@ export function AccordionStep({
 
         {open ? (
           <div className="flex flex-col items-center gap-[15px] px-[15px] pb-5">
-            <div className="grid w-full grid-cols-1 gap-[15px] md:grid-cols-2">
+            <div className="grid w-full grid-cols-1 gap-[15px] sm:grid-cols-2 2xl:grid-cols-5">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

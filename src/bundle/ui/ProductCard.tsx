@@ -14,17 +14,17 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article
-      className={`flex gap-[19px] overflow-clip rounded-[10px] bg-white p-[11px] ${
+      className={`flex h-full gap-[19px] overflow-clip rounded-[10px] bg-white p-[11px] 2xl:flex-col 2xl:gap-[19px] 2xl:px-[11px] 2xl:py-[15px] ${
         selected
           ? "border-2 border-accent/70"
           : "border border-transparent"
       }`}
     >
-      <div className="relative h-[137px] w-[101px] shrink-0 overflow-clip rounded-[5px] bg-white">
+      <div className="relative h-[137px] w-[101px] shrink-0 overflow-clip rounded-[5px] bg-white 2xl:aspect-[214/124] 2xl:h-auto 2xl:w-full">
         <img
           alt=""
           src={assetUrl(product.image)}
-          width={101}
+          width={214}
           height={137}
           className="size-full object-contain"
         />
@@ -37,8 +37,10 @@ export function ProductCard({ product }: { product: Product }) {
 
       <div className="flex min-w-0 flex-1 flex-col gap-2.5">
         <div className="flex flex-col gap-2 tracking-[0.6px]">
-          <h3 className="text-base font-semibold text-ink">{product.title}</h3>
-          <p className="text-xs leading-[1.3] text-ink/75">
+          <h3 className="text-base font-semibold text-ink 2xl:text-lg">
+            {product.title}
+          </h3>
+          <p className="text-xs leading-[1.3] text-ink/75 2xl:text-sm">
             {product.description}{" "}
             {product.learnMoreUrl ? (
               <a
@@ -59,7 +61,7 @@ export function ProductCard({ product }: { product: Product }) {
             value={qty}
             onChange={(next) => setQty(product.id, variantId, next)}
           />
-          <div className="flex flex-col items-end justify-center gap-[3px] text-right text-base tracking-[0.6px]">
+          <div className="flex min-w-0 flex-1 flex-col items-end justify-center gap-[3px] text-right text-base tracking-[0.6px] 2xl:flex-row 2xl:items-center 2xl:justify-end">
             {product.displayFree ? (
               <p className="font-semibold text-accent">FREE</p>
             ) : (
@@ -69,9 +71,7 @@ export function ProductCard({ product }: { product: Product }) {
                     {formatMoney(product.compareAtPrice, suffix)}
                   </p>
                 ) : null}
-                <p className="text-steel">
-                  {formatMoney(product.price, suffix)}
-                </p>
+                <p className="text-steel">{formatMoney(product.price, suffix)}</p>
               </>
             )}
           </div>
