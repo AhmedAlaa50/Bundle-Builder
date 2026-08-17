@@ -15,7 +15,7 @@ export function QuantityStepper({
 
   return (
     <div
-      className={`flex items-center ${compact ? "w-[72px] justify-between py-1" : "w-20 justify-center gap-2.5 py-1"}`}
+      className={`flex shrink-0 items-center ${compact ? "w-[72px] justify-between py-1" : "w-20 justify-center gap-2.5 py-1"}`}
     >
       <button
         type="button"

@@ -61,17 +61,25 @@ export function ProductCard({ product }: { product: Product }) {
             value={qty}
             onChange={(next) => setQty(product.id, variantId, next)}
           />
-          <div className="flex min-w-0 flex-1 flex-col items-end justify-center gap-[3px] text-right text-base tracking-[0.6px] 2xl:flex-row 2xl:items-center 2xl:justify-end">
+          <div
+            className={`flex min-w-0 flex-1 flex-col items-end justify-center gap-[3px] text-right text-base tracking-[0.6px] ${
+              product.priceSuffix
+                ? ""
+                : "2xl:flex-row 2xl:items-center 2xl:justify-end 2xl:gap-1"
+            }`}
+          >
             {product.displayFree ? (
               <p className="font-semibold text-accent">FREE</p>
             ) : (
               <>
                 {product.compareAtPrice != null ? (
-                  <p className="text-danger line-through">
+                  <p className="text-danger whitespace-nowrap line-through">
                     {formatMoney(product.compareAtPrice, suffix)}
                   </p>
                 ) : null}
-                <p className="text-steel">{formatMoney(product.price, suffix)}</p>
+                <p className="text-steel whitespace-nowrap">
+                  {formatMoney(product.price, suffix)}
+                </p>
               </>
             )}
           </div>
