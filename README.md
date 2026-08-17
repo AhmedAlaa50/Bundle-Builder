@@ -1,75 +1,34 @@
-# React + TypeScript + Vite
+# Bundle Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript + Vite prototype of a multi-step security-system bundle builder, implemented from the take-home Figma.
 
-Currently, two official plugins are available:
+## Run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the local URL Vite prints (usually `http://localhost:5173`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run build    # production build
+npm run preview  # serve the build
+npm test         # vitest
 ```
+
+## How it works
+
+- **Catalog-driven UI.** Products, prices, badges, variants, and the seeded cart live in `src/catalog/catalog.json`. Cards and the review panel render from that data, not per-product markup.
+- **Feature folder.** Cart state and screens live together under `src/bundle/` (`reducer`, `context`, `ui/`). The catalog stays a data package and does not know about quantities.
+- **Variant quantities.** Color chips switch the active variant; the card stepper edits that variant only. Every variant with qty &gt; 0 appears as its own review line.
+- **Live review.** Steppers on cards and in the review panel stay in sync. Totals, savings, and the “N selected” counts recompute as quantities change.
+- **Save my system for later.** Writes the current bundle to `localStorage` and restores it on the next visit.
+
+Checkout is a prototype confirmation only.
+
+## Notes
+
+- Desktop layout follows Figma Frame 1735 (accordion + review column). Smaller viewports stack the review panel under the builder.
+- Gilroy isn’t a licensed webfont here, so the UI uses the system sans already tokenized in `src/index.css`.
+- Camera card prices come from the product cards; the review panel in Figma uses a few different line totals for Pan v3. This app always computes `qty × unit price`.

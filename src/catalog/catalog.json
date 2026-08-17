@@ -1,4 +1,127 @@
 {
   "shipping": 0,
-  "products": []
+  "shippingCompareAt": 5.99,
+  "products": [
+    {
+      "id": "cam-v4",
+      "step": "cameras",
+      "reviewCategory": "Cameras",
+      "title": "Wyze Cam v4",
+      "description": "The clearest Wyze Cam ever made.",
+      "image": "camera1.svg",
+      "learnMoreUrl": "#",
+      "badge": "Save 22%",
+      "price": 27.98,
+      "compareAtPrice": 35.98,
+      "variants": [
+        { "id": "white", "label": "White", "swatch": "camera1-white.svg", "seedQty": 1 },
+        { "id": "grey", "label": "Grey", "swatch": "camera1-grey.svg" },
+        { "id": "black", "label": "Black", "swatch": "camera1-black.svg" }
+      ]
+    },
+    {
+      "id": "cam-pan-v3",
+      "step": "cameras",
+      "reviewCategory": "Cameras",
+      "title": "Wyze Cam Pan v3",
+      "description": "360° pan and 180° tilt security camera.",
+      "image": "camera2.svg",
+      "learnMoreUrl": "#",
+      "badge": "Save 12%",
+      "price": 34.98,
+      "compareAtPrice": 39.98,
+      "variants": [
+        { "id": "white", "label": "White", "swatch": "camera2-white.svg", "seedQty": 2 },
+        { "id": "black", "label": "Black", "swatch": "camera2-black.svg" }
+      ]
+    },
+    {
+      "id": "cam-floodlight-v2",
+      "step": "cameras",
+      "reviewCategory": "Cameras",
+      "title": "Wyze Cam Floodlight v2",
+      "description": "2K floodlight camera with a 160° wide-angle view for your garage.",
+      "image": "camera3.svg",
+      "learnMoreUrl": "#",
+      "badge": "Save 22%",
+      "price": 69.98,
+      "compareAtPrice": 89.98,
+      "variants": [
+        { "id": "white", "label": "White", "swatch": "camera3-white.svg" },
+        { "id": "black", "label": "Black", "swatch": "camera3-black.svg" }
+      ]
+    },
+    {
+      "id": "duo-doorbell",
+      "step": "cameras",
+      "reviewCategory": "Cameras",
+      "title": "Wyze Duo Cam Doorbell",
+      "description": "Two cameras. Two views. Double the porch protection.",
+      "image": "camera4.svg",
+      "learnMoreUrl": "#",
+      "price": 69.98
+    },
+    {
+      "id": "battery-cam-pro",
+      "step": "cameras",
+      "reviewCategory": "Cameras",
+      "title": "Wyze Battery Cam Pro",
+      "description": "Protect anywhere. See everything in 2.5K HDR. No power outlet or electrician needed.",
+      "image": "camera5.svg",
+      "learnMoreUrl": "#",
+      "price": 89.98,
+      "variants": [
+        { "id": "white", "label": "White", "swatch": "camera5-white.svg" },
+        { "id": "black", "label": "Black", "swatch": "camera5-black.svg" }
+      ]
+    },
+    {
+      "id": "cam-unlimited",
+      "step": "plan",
+      "reviewCategory": "Plan",
+      "title": "Cam Unlimited",
+      "description": "Unlimited camera recording in the cloud, with person, vehicle, and package detection.",
+      "image": "plan.svg",
+      "learnMoreUrl": "#",
+      "price": 9.99,
+      "compareAtPrice": 12.99,
+      "priceSuffix": "/mo",
+      "seedQty": 1
+    },
+    {
+      "id": "sense-motion",
+      "step": "sensors",
+      "reviewCategory": "Sensors",
+      "title": "Wyze Sense Motion Sensor",
+      "description": "Know the moment something moves in a room, hallway, or entryway.",
+      "image": "sensor1.svg",
+      "learnMoreUrl": "#",
+      "price": 29.99,
+      "seedQty": 2
+    },
+    {
+      "id": "sense-hub",
+      "step": "sensors",
+      "reviewCategory": "Sensors",
+      "title": "Wyze Sense Hub (Required)",
+      "description": "Required hub that connects your Wyze Sense devices to your system.",
+      "image": "sensor2.svg",
+      "learnMoreUrl": "#",
+      "price": 0,
+      "compareAtPrice": 29.92,
+      "displayFree": true,
+      "seedQty": 1
+    },
+    {
+      "id": "microsd-256",
+      "step": "protection",
+      "reviewCategory": "Accessories",
+      "title": "Wyze MicroSD Card (256GB)",
+      "description": "Local recording backup so your cameras keep capturing if the internet drops.",
+      "image": "accessory.svg",
+      "learnMoreUrl": "#",
+      "price": 20.98,
+      "seedQty": 2
+    }
+  ]
 }
