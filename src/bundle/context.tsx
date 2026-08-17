@@ -23,7 +23,7 @@ import {
   productHasSelection,
   type ReviewLine,
 } from "./selectors";
-import type { BundleAction, BundleState } from "./types";
+import type { BundleAction, BundleState, OpenStep } from "./types";
 
 type BundleContextValue = {
   catalog: Catalog;
@@ -32,7 +32,7 @@ type BundleContextValue = {
   getQty: (productId: string, variantId?: string) => number;
   setQty: (productId: string, variantId: string, qty: number) => void;
   setActiveVariant: (productId: string, variantId: string) => void;
-  setStep: (step: 1 | 2 | 3 | 4) => void;
+  setStep: (step: OpenStep) => void;
   selectedCountForStep: (step: Product["step"]) => number;
   activeVariantId: (product: Product) => string;
   isProductSelected: (product: Product) => boolean;
@@ -48,7 +48,15 @@ export function BundleProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(
     bundleReducer,
     undefined,
-    () => loadSavedBundle() ?? seedBundleState(catalog),
+    () => {
+      const saved = loadSavedBundle();
+      if (saved) return saved;
+      const seeded = seedBundleState(catalog);
+      if (window.matchMedia("(max-width: 767px)").matches) {
+        return { ...seeded, openStep: null };
+      }
+      return seeded;
+    },
   );
 
   const getQty = useCallback(
@@ -76,7 +84,7 @@ export function BundleProvider({ children }: { children: ReactNode }) {
     [],
   );
 
-  const setStep = useCallback((step: 1 | 2 | 3 | 4) => {
+  const setStep = useCallback((step: OpenStep) => {
     dispatch({ type: "SET_STEP", step });
   }, []);
 

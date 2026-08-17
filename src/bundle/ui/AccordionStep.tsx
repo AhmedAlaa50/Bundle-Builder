@@ -32,7 +32,7 @@ export function AccordionStep({
         <button
           type="button"
           className="flex w-full items-center gap-[3px] px-[15px] py-5 text-left"
-          onClick={() => setStep(step.id)}
+          onClick={() => setStep(open ? null : step.id)}
           aria-expanded={open}
         >
           <span className="flex min-w-0 flex-1 items-center gap-2">
@@ -72,9 +72,21 @@ export function AccordionStep({
         {open ? (
           <div className="flex flex-col items-center gap-[15px] px-[15px] pb-5">
             <div className="grid w-full grid-cols-1 gap-[15px] sm:grid-cols-2 2xl:grid-cols-5">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+              {products.map((product, index) => {
+                const lastAloneOnTwoColRow =
+                  products.length % 2 === 1 && index === products.length - 1;
+                return (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    className={
+                      lastAloneOnTwoColRow
+                        ? "sm:col-span-2 sm:w-[calc((100%-15px)/2)] sm:justify-self-center 2xl:col-span-1 2xl:w-auto 2xl:justify-self-auto"
+                        : ""
+                    }
+                  />
+                );
+              })}
             </div>
             {step.next ? (
               <button

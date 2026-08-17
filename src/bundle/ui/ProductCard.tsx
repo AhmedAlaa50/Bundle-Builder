@@ -5,7 +5,13 @@ import { formatMoney } from "../selectors";
 import { QuantityStepper } from "./QuantityStepper";
 import { VariantPicker } from "./VariantPicker";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  className = "",
+}: {
+  product: Product;
+  className?: string;
+}) {
   const { getQty, setQty, activeVariantId, isProductSelected } = useBundle();
   const variantId = activeVariantId(product);
   const qty = getQty(product.id, variantId);
@@ -18,7 +24,7 @@ export function ProductCard({ product }: { product: Product }) {
         selected
           ? "border-2 border-accent/70"
           : "border border-transparent"
-      }`}
+      } ${className}`}
     >
       <div className="relative h-[137px] w-[101px] shrink-0 overflow-clip rounded-[5px] bg-white 2xl:aspect-[214/124] 2xl:h-auto 2xl:w-full">
         <img
@@ -68,19 +74,17 @@ export function ProductCard({ product }: { product: Product }) {
                 : "2xl:flex-row 2xl:items-center 2xl:justify-end 2xl:gap-1"
             }`}
           >
+            {product.compareAtPrice != null ? (
+              <p className="text-danger whitespace-nowrap line-through">
+                {formatMoney(product.compareAtPrice, suffix)}
+              </p>
+            ) : null}
             {product.displayFree ? (
               <p className="font-semibold text-accent">FREE</p>
             ) : (
-              <>
-                {product.compareAtPrice != null ? (
-                  <p className="text-danger whitespace-nowrap line-through">
-                    {formatMoney(product.compareAtPrice, suffix)}
-                  </p>
-                ) : null}
-                <p className="text-steel whitespace-nowrap">
-                  {formatMoney(product.price, suffix)}
-                </p>
-              </>
+              <p className="text-steel whitespace-nowrap">
+                {formatMoney(product.price, suffix)}
+              </p>
             )}
           </div>
         </div>

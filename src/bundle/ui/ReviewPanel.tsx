@@ -6,13 +6,6 @@ import { useBundle } from "../context";
 import { formatMoney, type ReviewLine } from "../selectors";
 import { QuantityStepper } from "./QuantityStepper";
 
-const CATEGORY_LABEL: Record<(typeof REVIEW_CATEGORIES)[number], string> = {
-  Cameras: "Cameras",
-  Sensors: "Sensors",
-  Accessories: "Accessories",
-  Plan: "Home monitoring plan",
-};
-
 function lineTitle(line: ReviewLine, lines: ReviewLine[]): string {
   const variantLines = lines.filter((item) => item.product.id === line.product.id);
   if (variantLines.length > 1 && line.variant) {
@@ -160,7 +153,7 @@ export function ReviewPanel() {
                   className="flex flex-col gap-2 border-t border-line pt-[15px]"
                 >
                   <h3 className="text-xs tracking-[0.36px] text-gray-c-500 uppercase">
-                    {CATEGORY_LABEL[category]}
+                    {category}
                   </h3>
                   <div className="flex flex-col gap-3">
                     {group.map((line) => (
