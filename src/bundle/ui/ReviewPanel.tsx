@@ -6,12 +6,30 @@ import { useBundle } from "../context";
 import { formatMoney, type ReviewLine } from "../selectors";
 import { QuantityStepper } from "./QuantityStepper";
 
+const CATEGORY_LABEL: Record<(typeof REVIEW_CATEGORIES)[number], string> = {
+  Cameras: "Cameras",
+  Sensors: "Sensors",
+  Accessories: "Accessories",
+  Plan: "Home monitoring plan",
+};
+
 function lineTitle(line: ReviewLine, lines: ReviewLine[]): string {
   const variantLines = lines.filter((item) => item.product.id === line.product.id);
   if (variantLines.length > 1 && line.variant) {
     return `${line.product.title} · ${line.variant.label}`;
   }
   return line.product.title;
+}
+
+function PlanTitle({ title }: { title: string }) {
+  const match = title.match(/^(.*?)(Unlimited)$/i);
+  if (!match) return title;
+  return (
+    <>
+      {match[1]}
+      <span className="text-accent">{match[2]}</span>
+    </>
+  );
 }
 
 function Price({ line }: { line: ReviewLine }) {
@@ -24,7 +42,7 @@ function Price({ line }: { line: ReviewLine }) {
         : undefined;
 
   return (
-    <div className="flex shrink-0 flex-col items-end text-right text-sm tracking-[0.07px] 2xl:flex-row 2xl:items-center 2xl:gap-2.5 2xl:text-base 2xl:tracking-[0.08px]">
+    <div className="flex shrink-0 flex-col items-end text-right text-xs tracking-[0.06px] md:text-sm md:tracking-[0.07px] 2xl:flex-row 2xl:items-center 2xl:gap-2.5 2xl:text-base 2xl:tracking-[0.08px]">
       {compare != null ? (
         <p className="font-medium text-gray-c-600 line-through">
           {formatMoney(compare, suffix)}
@@ -46,7 +64,39 @@ function ReviewItem({
 }) {
   const { setQty } = useBundle();
   const variantId = line.variant?.id ?? DEFAULT_VARIANT_ID;
-  const showStepper = line.product.step !== "plan";
+  const isPlan = line.product.step === "plan";
+
+  if (isPlan) {
+    return (
+      <div className="flex w-full items-start justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-[3px] xl:gap-3">
+          <img
+            alt=""
+            src={assetUrl("plan-icon.svg")}
+            width={14}
+            height={17}
+            className="h-[17px] w-3.5 shrink-0 xl:hidden"
+          />
+          <div className="relative hidden size-[41px] shrink-0 overflow-clip rounded-[5px] bg-white xl:block">
+            <img
+              alt=""
+              src={assetUrl(line.product.image)}
+              width={41}
+              height={41}
+              className="size-full object-contain"
+            />
+          </div>
+          <p className="min-w-0 text-sm font-bold tracking-[-0.028px] text-black xl:text-sm xl:font-medium xl:tracking-[0.07px] xl:text-heading 2xl:text-lg 2xl:tracking-[0.09px]">
+            <span className="xl:hidden">
+              <PlanTitle title={line.product.title} />
+            </span>
+            <span className="hidden xl:inline">{lineTitle(line, lines)}</span>
+          </p>
+        </div>
+        <Price line={line} />
+      </div>
+    );
+  }
 
   return (
     <div className="flex w-full items-center gap-4">
@@ -60,16 +110,14 @@ function ReviewItem({
             className="size-full object-contain"
           />
         </div>
-        <p className="min-w-0 flex-1 text-sm font-medium tracking-[0.07px] text-heading 2xl:text-lg 2xl:tracking-[0.09px]">
+        <p className="min-w-0 flex-1 text-xs font-medium tracking-[0.06px] text-heading md:text-sm md:tracking-[0.07px] 2xl:text-lg 2xl:tracking-[0.09px]">
           {lineTitle(line, lines)}
         </p>
-        {showStepper ? (
-          <QuantityStepper
-            size="review"
-            value={line.qty}
-            onChange={(qty) => setQty(line.product.id, variantId, qty)}
-          />
-        ) : null}
+        <QuantityStepper
+          size="review"
+          value={line.qty}
+          onChange={(qty) => setQty(line.product.id, variantId, qty)}
+        />
       </div>
       <Price line={line} />
     </div>
@@ -83,18 +131,18 @@ export function ReviewPanel() {
   const monthly = totals.sale * (19.19 / 187.89);
 
   return (
-    <aside className="flex w-full flex-col gap-[5px] rounded-[10px] bg-ice pt-[15px] xl:w-[399px] xl:shrink-0 2xl:w-full">
-      <p className="px-[15px] text-xs font-medium tracking-[1.6px] text-charcoal uppercase 2xl:hidden">
+    <aside className="flex w-full flex-col gap-[5px] bg-ice pt-[15px] xl:w-[399px] xl:shrink-0 xl:rounded-[10px] 2xl:w-full">
+      <p className="px-[15px] text-[10px] font-medium tracking-[1.6px] text-charcoal uppercase xl:text-xs 2xl:hidden">
         Review
       </p>
 
-      <div className="flex flex-col gap-2.5 px-5 pt-5 pb-8 2xl:flex-row 2xl:items-start 2xl:justify-center 2xl:gap-[52px]">
+      <div className="flex flex-col gap-2.5 px-5 pt-5 pb-[31px] md:pb-8 2xl:flex-row 2xl:items-start 2xl:justify-center 2xl:gap-[52px]">
         <div className="flex min-w-0 w-full flex-col gap-2.5 2xl:max-w-[552px] 2xl:flex-1">
           <div className="flex flex-col gap-[5px] tracking-[0.6px]">
             <h2 className="text-[22px] font-semibold text-ink 2xl:text-[28px]">
               Your security system
             </h2>
-            <p className="text-sm leading-[1.3] text-ink/75 2xl:text-base">
+            <p className="text-xs leading-[1.3] text-ink/75 md:text-sm 2xl:text-base">
               Review your personalized protection system designed to keep what
               matters most safe.
             </p>
@@ -112,7 +160,7 @@ export function ReviewPanel() {
                   className="flex flex-col gap-2 border-t border-line pt-[15px]"
                 >
                   <h3 className="text-xs tracking-[0.36px] text-gray-c-500 uppercase">
-                    {category}
+                    {CATEGORY_LABEL[category]}
                   </h3>
                   <div className="flex flex-col gap-3">
                     {group.map((line) => (
@@ -135,11 +183,11 @@ export function ReviewPanel() {
                       className="size-full object-contain"
                     />
                   </div>
-                  <p className="min-w-0 flex-1 text-sm font-medium tracking-[0.07px] text-heading 2xl:text-lg 2xl:tracking-[0.09px]">
+                  <p className="min-w-0 flex-1 text-xs font-medium tracking-[0.06px] text-heading md:text-sm md:tracking-[0.07px] 2xl:text-lg 2xl:tracking-[0.09px]">
                     Fast Shipping
                   </p>
                 </div>
-                <div className="flex shrink-0 flex-col items-end text-right text-sm 2xl:flex-row 2xl:items-center 2xl:gap-2.5 2xl:text-base">
+                <div className="flex shrink-0 flex-col items-end text-right text-xs md:text-sm 2xl:flex-row 2xl:items-center 2xl:gap-2.5 2xl:text-base">
                   {catalog.shippingCompareAt != null ? (
                     <p className="font-medium text-gray-c-600 line-through">
                       {formatMoney(catalog.shippingCompareAt)}
@@ -156,8 +204,8 @@ export function ReviewPanel() {
           </div>
         </div>
 
-        <div className="flex w-full flex-col gap-1 pt-2 2xl:w-[486px] 2xl:shrink-0 2xl:gap-2 2xl:pt-0">
-          <div className="flex items-start justify-between gap-3 2xl:flex-col 2xl:gap-4">
+        <div className="flex w-full flex-col gap-2 pt-2.5 2xl:w-[486px] 2xl:shrink-0 2xl:gap-2 2xl:pt-0">
+          <div className="flex items-center justify-between gap-3 2xl:flex-col 2xl:items-start 2xl:gap-4">
             <div className="flex min-w-0 items-center gap-3 2xl:w-full 2xl:gap-[25px]">
               <div className="relative size-[78px] shrink-0 overflow-clip 2xl:size-[131px]">
                 <img
@@ -203,7 +251,7 @@ export function ReviewPanel() {
           <button
             type="button"
             onClick={() => setCheckedOut(true)}
-            className="mt-1 w-full rounded-[4px] bg-accent px-4 py-[13px] text-center text-[22px] font-semibold text-white 2xl:mt-0 2xl:text-[17px]"
+            className="mt-1 w-full rounded-[4px] bg-accent px-4 py-[13px] text-center text-[17px] font-semibold text-white xl:text-[22px] 2xl:mt-0 2xl:text-[17px]"
           >
             Checkout
           </button>
@@ -219,7 +267,7 @@ export function ReviewPanel() {
               saveForLater();
               setSaved(true);
             }}
-            className="w-full text-center text-sm text-charcoal italic underline"
+            className="w-full text-center text-xs tracking-[-0.016px] text-charcoal italic underline md:text-sm"
           >
             Save my system for later
           </button>

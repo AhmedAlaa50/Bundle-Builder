@@ -29,6 +29,6 @@ Checkout is a prototype confirmation only.
 
 ## Notes
 
-- **Layouts.** Below `xl` the page stacks. From `xl` (1280px) it uses Figma Frame 1735: accordion + review side by side, horizontal product cards. From `2xl` (1536px) it uses Frame 1736: full-width 5-up vertical cards and a two-column review panel underneath.
+- **Layouts.** Below `md` it uses Figma **iPhone 13 & 14 - 35**: “Let’s get started!” heading, compact accordion with selected counts on every step, and a full-bleed review panel underneath. From `md` to `xl` the page stays stacked with more padding. From `xl` (1280px) it uses Frame 1735: accordion + review side by side, horizontal product cards. From `2xl` (1536px) it uses Frame 1736: full-width 5-up vertical cards and a two-column review panel underneath.
 - Gilroy isn’t a licensed webfont here, so the UI uses the system sans already tokenized in `src/index.css`.
 - Camera card prices come from the product cards; the review panel in Figma uses a few different line totals for Pan v3. This app always computes `qty × unit price`.

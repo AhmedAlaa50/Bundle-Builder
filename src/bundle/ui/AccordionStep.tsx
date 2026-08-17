@@ -36,7 +36,7 @@ export function AccordionStep({
           aria-expanded={open}
         >
           <span className="flex min-w-0 flex-1 items-center gap-2">
-            <span className="relative size-[26px] shrink-0 overflow-clip 2xl:size-[30px]">
+            <span className="relative size-5 shrink-0 overflow-clip md:size-[26px] 2xl:size-[30px]">
               <img
                 alt=""
                 src={assetUrl(step.icon)}
@@ -45,16 +45,18 @@ export function AccordionStep({
                 className="size-full object-contain"
               />
             </span>
-            <span className="text-[22px] font-semibold text-heading 2xl:text-[28px]">
+            <span className="text-lg font-semibold text-heading md:text-[22px] 2xl:text-[28px]">
               {step.label}
             </span>
           </span>
           <span className="flex shrink-0 items-center gap-1">
-            {open ? (
-              <span className="text-sm font-medium text-accent">
-                {selectedCount} selected
-              </span>
-            ) : null}
+            <span
+              className={`text-sm leading-4 font-medium text-accent ${
+                open ? "" : "xl:hidden"
+              }`}
+            >
+              {selectedCount} selected
+            </span>
             <span className="relative size-3 overflow-clip">
               <img
                 alt=""
